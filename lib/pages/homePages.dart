@@ -1,6 +1,7 @@
 import 'package:bwa_cozy/models/city.dart';
 import 'package:bwa_cozy/models/guidance.dart';
 import 'package:bwa_cozy/models/space.dart';
+import 'package:bwa_cozy/pages/detailPages.dart';
 import 'package:bwa_cozy/theme.dart';
 import 'package:bwa_cozy/widgets/bottomNavbarItem.dart';
 import 'package:bwa_cozy/widgets/cityCard.dart';
@@ -35,8 +36,7 @@ class HomePages extends StatelessWidget {
               padding: const EdgeInsets.only(left: 24),
               child: Text(
                 "Mencari kosan yang cozy",
-                style:
-                    greyTextColor.copyWith(fontSize: 16, fontWeight: light),
+                style: greyTextColor.copyWith(fontSize: 16, fontWeight: light),
               ),
             ),
             SizedBox(
@@ -109,15 +109,23 @@ class HomePages extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: edge),
               child: Column(
                 children: [
-                  SpaceCard(
-                    Space(
-                        id: 1,
-                        name: "Kuretakeso Hott",
-                        imageUrl: "assets/images/image.png",
-                        price: "52",
-                        city: "Bandung",
-                        country: "Germany",
-                        rating: 4),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DetailPages()),
+                      );
+                    },
+                    child: SpaceCard(
+                      Space(
+                          id: 1,
+                          name: "Kuretakeso Hott",
+                          imageUrl: "assets/images/image.png",
+                          price: "52",
+                          city: "Bandung",
+                          country: "Germany",
+                          rating: 4),
+                    ),
                   ),
                   SizedBox(
                     height: 28,
@@ -156,8 +164,8 @@ class HomePages extends StatelessWidget {
               padding: const EdgeInsets.only(left: 24),
               child: Text(
                 "Tips & Guidance",
-                style: blackTextColor.copyWith(
-                    fontSize: 16, fontWeight: regular),
+                style:
+                    blackTextColor.copyWith(fontSize: 16, fontWeight: regular),
               ),
             ),
             SizedBox(
@@ -188,46 +196,42 @@ class HomePages extends StatelessWidget {
             SizedBox(
               height: 50 + edge,
             )
-            
           ],
         )),
       ),
       //TODO Navbar ButtonItem
       floatingActionButton: Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width-(2 * edge),
-                margin: EdgeInsets.symmetric(
-                  horizontal: edge,
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0xffF6F7F8),
-                  borderRadius: 
-                  BorderRadius.circular(23)
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    BottomNavbarItem(
-                      imageUrl: "assets/icon/Icon_home.png",
-                      isActive: true,
-                    ),
-                      BottomNavbarItem(
-                      imageUrl: "assets/icon/Icon_mail.png",
-                      isActive: false,
-                    ),
-                      BottomNavbarItem(
-                      imageUrl: "assets/icon/Icon_card.png",
-                      isActive: false,
-                    ),
-                      BottomNavbarItem(
-                      imageUrl: "assets/icon/Icon_love.png",
-                      isActive: false,
-                    ),
-                  ],
-                ),
-              ),
-              //TODO Location Button
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat ,
+        height: 65,
+        width: MediaQuery.of(context).size.width - (2 * edge),
+        margin: EdgeInsets.symmetric(
+          horizontal: edge,
+        ),
+        decoration: BoxDecoration(
+            color: Color(0xffF6F7F8), borderRadius: BorderRadius.circular(23)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            BottomNavbarItem(
+              imageUrl: "assets/icon/Icon_home.png",
+              isActive: true,
+            ),
+            BottomNavbarItem(
+              imageUrl: "assets/icon/Icon_mail.png",
+              isActive: false,
+            ),
+            BottomNavbarItem(
+              imageUrl: "assets/icon/Icon_card.png",
+              isActive: false,
+            ),
+            BottomNavbarItem(
+              imageUrl: "assets/icon/Icon_love.png",
+              isActive: false,
+            ),
+          ],
+        ),
+      ),
+      //TODO Location Button
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
