@@ -6,6 +6,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       body: SafeArea(
         // bottom: false => digunakan untuk iphone footer hingga kebawah
           child: Stack(

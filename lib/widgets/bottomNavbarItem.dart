@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class BottomNavbarItem extends StatelessWidget {
 
-   final String imageUrl;
+  final String imageUrl;
   final   bool isActive;
   BottomNavbarItem({
     required this.imageUrl, 
