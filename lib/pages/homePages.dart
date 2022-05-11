@@ -2,18 +2,22 @@ import 'package:bwa_cozy/models/city.dart';
 import 'package:bwa_cozy/models/guidance.dart';
 import 'package:bwa_cozy/models/space.dart';
 import 'package:bwa_cozy/pages/detailPages.dart';
+import 'package:bwa_cozy/providers/space_providers.dart';
 import 'package:bwa_cozy/theme.dart';
 import 'package:bwa_cozy/widgets/bottomNavbarItem.dart';
 import 'package:bwa_cozy/widgets/cityCard.dart';
 import 'package:bwa_cozy/widgets/guidanceCard.dart';
 import 'package:bwa_cozy/widgets/spaceCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:bwa_cozy/models/space.dart';
 
 class HomePages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var spaceProvider = Provider.of<SpaceProviders>(context);
     return Scaffold(
-      backgroundColor: whiteColor ,
+      backgroundColor: whiteColor,
       body: SafeArea(
         bottom: false,
         child: (ListView(
@@ -108,53 +112,46 @@ class HomePages extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: edge),
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DetailPages()),
-                      );
-                    },
-                    child: SpaceCard(
-                      Space(
-                          id: 1,
-                          name: "Kuretakeso Hott",
-                          imageUrl: "assets/images/image.png",
-                          price: "52",
-                          city: "Bandung",
-                          country: "Germany",
-                          rating: 4),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                  SpaceCard(
-                    Space(
-                        id: 2,
-                        name: "Roemah Nenek",
-                        imageUrl: "assets/images/image1.png",
-                        price: "11",
-                        city: "Seattle",
-                        country: "Bogor",
-                        rating: 5),
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                  SpaceCard(
-                    Space(
-                        id: 3,
-                        name: "Darrling How",
-                        imageUrl: "assets/images/image2.png",
-                        price: "20",
-                        city: "Jakarta",
-                        country: "Indonesia",
-                        rating: 3),
-                  ),
-                ],
+              child: FutureBuilder(
+                future: spaceProvider.getRecommendedSpaces(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Space>? data = snapshot.data as List<Space>?;
+                    return Column(
+                        children: data!
+                            .map(
+                              (e) => Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DetailPages()),
+                                    );
+                                  },
+                                  child: SpaceCard(
+                                    Space(
+                                      id: e.id,
+                                      name: e.name,
+                                      imageUrl: e.imageUrl,
+                                      price: e.price,
+                                      city: e.city,
+                                      country: e.country,
+                                      rating: e.rating,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList());
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                        // strokeWidth: 8,
+                        ),
+                  );
+                },
               ),
             ),
             //TODO Tips & Guidance

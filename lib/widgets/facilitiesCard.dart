@@ -23,7 +23,7 @@ class FacilitiesCard extends StatelessWidget {
         ),
         Text.rich(
           TextSpan(
-              text: '\$$paymentText ',
+              text: '\$$paymentText',
               style: primaryTextColor.copyWith(fontSize: 16),
               children: [
                 TextSpan(

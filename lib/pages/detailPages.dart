@@ -10,7 +10,9 @@ class DetailPages extends StatelessWidget {
       try {
         await launch(value);
       } catch (e) {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ErrorPages()));
+        //TODO: ini seharusnya pages nya mengarah, tapi ketika disalahkan urlnya malah error (belum ditemukan harus bisa SOLVED !!)
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ErrorPages()));
       }
     }
 
@@ -213,8 +215,7 @@ class DetailPages extends StatelessWidget {
                             InkWell(
                                 onTap: () {
                                   launch(
-                                      "https://goo.gl/maps/LrNUYFZfo8ihCS1Y8"
-                                      );
+                                      "https://goo.gl/maps/LrNUYFZfo8ihCS1Y8");
                                 },
                                 child: Icon(
                                   Icons.location_on,
@@ -223,21 +224,28 @@ class DetailPages extends StatelessWidget {
                           ],
                         ),
                       ),
-                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ErrorPages()));
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ErrorPages()));
                         },
                         child: Container(
-                          child: Text("Error Page", style: greyTextColor.copyWith(fontStyle: FontStyle.italic),),
+                          child: Text(
+                            "Error Page",
+                            style: greyTextColor.copyWith(
+                                fontStyle: FontStyle.italic),
+                          ),
                         ),
                       ),
                       SizedBox(
                         height: 40,
                       ),
-                     
+
                       InkWell(
-                        onTap: () {
-                         launch("tel:+6285930172346");
+                        onTap: () async{
+                          await launchUrl(Uri.parse("tel:+6285930172346"));
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: edge),

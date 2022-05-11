@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 class SpaceCard extends StatelessWidget {
   final Space space;
-
   SpaceCard(this.space);
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailPages()));
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DetailPages()));
       },
       child: Row(children: [
         ClipRRect(
@@ -23,8 +23,10 @@ class SpaceCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  child: Image.asset(
+                  child: Image.network(
                     space.imageUrl,
+                    height: 110,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Align(
